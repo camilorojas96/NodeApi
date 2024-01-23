@@ -1,0 +1,11 @@
+use("Dental_clinic")
+
+db.patients.insertOne(
+	{
+		"name": "Yesid",
+		"last_name": "Rojas",
+		"id": 7163131,
+		"phone": 3175939363,
+		"email": "pcrojasp@gmail.com"
+	}
+)
