@@ -12,11 +12,11 @@ const patientSchema = mongoose.Schema(
             required : [true, "Please enter the patient  last name"]
         },
         id:{
-            type: Number,
+            type: String,
             required: true
         },
         phone:{
-            type: Number,
+            type: String,
             required: true
         },
         email: {
