@@ -1,0 +1,1 @@
+Back end api-rest for a dental clinic, using javascript and mongoDB

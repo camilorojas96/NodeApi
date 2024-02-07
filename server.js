@@ -3,6 +3,7 @@ const express = require("express")
 const mongoose =require("mongoose")
 const patient_route = require('./routes/patient_route')
 const error_middleware = require('./middleware/error_middleware')
+
 var cors = require("cors")
 
 
@@ -24,6 +25,7 @@ app.get('/', (req,res) => {
 })
 
 app.use(error_middleware)
+
 
 
 mongoose.connect(MONGO_URL)

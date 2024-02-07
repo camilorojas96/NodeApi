@@ -7,5 +7,16 @@ const error_middleware = (err , req, res, next) =>{
 
 }
 
-module.exports = error_middleware
+const validate_entries = (err ,req, res , next) =>{
+    const {data} = req.body
+
+    if(!data){
+        console.log("Data error")
+        return res.status(400).json({error: "Missing data entries"})
+    }
+
+    next()
+}
+
+module.exports = error_middleware, validate_entries
 
