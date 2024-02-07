@@ -5,6 +5,7 @@ const patientSchema = mongoose.Schema(
         name: {
             type: String,
             required : [true, "Please enter the patient name"]
+            
         },
 
         last_name: {
