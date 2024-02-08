@@ -2,7 +2,6 @@ require("dotenv").config()
 const express = require("express")
 const mongoose =require("mongoose")
 const patient_route = require('./routes/patient_route')
-const user_route = require('./routes/user_route')
 const error_middleware = require('./middleware/error_middleware')
 
 var cors = require("cors")
@@ -20,7 +19,7 @@ app.use(express.json())
 //routes
 
 app.use('/api/patients', patient_route)
-app.use('/api/users', user_route)
+
 
 app.get('/', (req,res) => {
     res.send("Node API")

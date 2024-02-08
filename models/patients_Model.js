@@ -23,6 +23,15 @@ const patientSchema = mongoose.Schema(
         email: {
             type: String,
             required: true
+        },
+        administrator: {
+            type: Boolean,
+            required : true
+
+        },
+        password : {
+            type: String,
+            required: true
         }
     }
 )
