@@ -10,7 +10,7 @@ const userSchema = mongoose.Schema(
         },
 
         administrator: {
-            type: Binary,
+            type: Boolean,
             required : true
         },
         password:{
@@ -21,6 +21,6 @@ const userSchema = mongoose.Schema(
     }
 )
 
-const Patient = mongoose.model("User", userSchema)
+const User = mongoose.model("User", userSchema)
 
 module.exports = User
