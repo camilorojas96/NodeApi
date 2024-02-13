@@ -3,6 +3,7 @@ const express = require("express")
 const mongoose =require("mongoose")
 const patient_route = require('./routes/patient_route')
 const error_middleware = require('./middleware/error_middleware')
+const Patient = require('./models/patients_model')
 
 var cors = require("cors")
 
@@ -20,10 +21,27 @@ app.use(express.json())
 
 app.use('/api/patients', patient_route)
 
+app.post('/api/login', async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const patient = await Patient.findOne({ id: username, password });
+  
+      if (patient) {
+        res.json({ success: true });
+      } else {
+        res.json({ success: false });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+  })
 
 app.get('/', (req,res) => {
-    res.send("Node API")
+    res.render("Node Api")
 })
+
+
 
 app.use(error_middleware)
 

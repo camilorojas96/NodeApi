@@ -10,4 +10,5 @@ router.post('/', add_patient)
 router.put('/:id',update_patient )
 router.delete('/:id',delete_patient )
 
+
 module.exports = router

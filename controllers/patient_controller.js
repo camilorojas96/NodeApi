@@ -72,10 +72,30 @@ const delete_patient = asyncHandler(async(req,res)=>{
     }
 })
 
+
+const login = asyncHandler(async(req, res) => {
+    try {
+      const { username, password } = req.body;
+      const patient = await Patient.findOne({ id: username, password });
+  
+      if (patient) {
+        res.json({ success: true });
+      } else {
+        res.json({ success: false });
+      }
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ success: false, error: 'Internal Server Error' });
+    }
+  })
+
+
 module.exports ={
     get_patients,
     get_patient_by_id,
     add_patient,
     update_patient,
-    delete_patient
+    delete_patient,
+    login,
+    
 }   
