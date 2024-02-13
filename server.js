@@ -21,7 +21,7 @@ app.use(express.json())
 
 app.use('/api/patients', patient_route)
 
-app.post('/api/login', async (req, res) => {
+/* app.post('/api/login', async (req, res) => {
     try {
       const { username, password } = req.body;
       const patient = await Patient.findOne({ id: username, password });
@@ -35,7 +35,7 @@ app.post('/api/login', async (req, res) => {
       console.error(error);
       res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
-  })
+  }) */
 
 app.get('/', (req,res) => {
     res.render("Node Api")
