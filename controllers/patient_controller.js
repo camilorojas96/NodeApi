@@ -1,5 +1,6 @@
 const Patient = require('../models/patients_model')
 const asyncHandler = require('express-async-handler')
+const bcrypt = require('bcrypt')
 
 
 const  get_patients =  asyncHandler(async(req,res)=>{
@@ -26,18 +27,32 @@ const get_patient_by_id = asyncHandler(async(req,res)=>{
 
 })
 
-const add_patient = asyncHandler(async(req,res)=>{
+const add_patient = asyncHandler(async (req, res) => {
+    try {
+        const { password, ...otherData } = req.body
 
-    try{
-        const patient = await Patient.create(req.body)
+       
+        const salt = await bcrypt.genSalt(10)
+
+       
+        const hashed_password = await bcrypt.hash(password, salt)
+
+        
+        const patientData = {
+            ...otherData,
+            password: hashed_password,
+        }
+
+
+        const patient = await Patient.create(patientData)
+        
         res.status(200).json(patient)
 
-    } catch (error){
+    } catch (error) {
         console.log(error.message)
         res.status(500)
         throw new Error(error.message)
     }
-
 })
 
 const update_patient = asyncHandler(async(req, res)=>{
@@ -72,23 +87,33 @@ const delete_patient = asyncHandler(async(req,res)=>{
     }
 })
 
-
-const login = asyncHandler(async(req, res) => {
+const login = asyncHandler(async (req, res) => {
     try {
-      const { username, password } = req.body;
-      const patient = await Patient.findOne({ id: username, password });
-  
-      if (patient) {
-        res.json({ success: true });
-      } else {
-        res.json({ success: false });
-      }
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ success: false, error: 'Internal Server Error' });
-    }
-  })
+        const { username, password } = req.body
+        
+      
+        const patient = await Patient.findOne({ id: username })
 
+        if (patient) {
+        
+            const isPasswordMatch = await bcrypt.compare(password, patient.password);
+
+            if (isPasswordMatch) {
+                const is_admin = patient.administrator || false
+                const _id = patient._id
+
+                res.json({ success: true, is_admin, _id })
+            } else {
+                res.json({ success: false })
+            }
+        } else {
+            res.json({ success: false })
+        }
+    } catch (error) {
+        console.error(error)
+        res.status(500).json({ success: false, error: 'Internal Server Error' })
+    }
+})
 
 module.exports ={
     get_patients,
