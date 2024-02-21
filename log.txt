@@ -1,1 +1,8 @@
-User log in 1049646394 at Wed Feb 21 2024 10:32:01 GMT-0500 (Colombia Standard Time)
+User: 1049646394 log in  (Session 1) at Wed Feb 21 2024 11:35:35 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Wed Feb 21 2024 11:35:40 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Wed Feb 21 2024 11:39:40 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Wed Feb 21 2024 11:39:43 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Wed Feb 21 2024 11:45:41 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Wed Feb 21 2024 11:45:43 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Wed Feb 21 2024 11:52:13 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Wed Feb 21 2024 11:52:17 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
