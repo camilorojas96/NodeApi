@@ -1,6 +1,8 @@
 const Patient = require('../models/patients_model')
 const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+const fs = require('fs')
 
 
 const  get_patients =  asyncHandler(async(req,res)=>{
@@ -15,18 +17,20 @@ const  get_patients =  asyncHandler(async(req,res)=>{
     }
 })
 
-const get_patient_by_id = asyncHandler(async(req,res)=>{
+const get_patient_by_id = asyncHandler(async (req, res) => {
     try {
-        const {id} = req.params
+        const { id } = req.params
         const patient = await Patient.findById(id)
+        
+        if (!patient) {
+            return res.status(404).json({ message: `Cannot find the patient with id: ${id}` })
+        }
+
         res.status(200).json(patient)
     } catch (error) {
-        res.status(500)
-        throw new Error(error.message)
+        res.status(500).json({ success: false, error: error.message })
     }
-
 })
-
 const add_patient = asyncHandler(async (req, res) => {
     try {
         const { password, ...otherData } = req.body
@@ -101,8 +105,28 @@ const login = asyncHandler(async (req, res) => {
             if (isPasswordMatch) {
                 const is_admin = patient.administrator || false
                 const _id = patient._id
+                token_user = {
+                    username: patient.id,
+                    id: _id,
+                };
+                const token = jwt.sign(token_user, process.env.TOKEN_SECRET)
+                const login_time = new Date()
+                fs.unlink("log.txt", (err)=>{
+                    if(err && err.code !== "ENOENT"){
+                    console.log(err)
+                }else{
+                    console.log("Previous log deleted")
 
-                res.json({ success: true, is_admin, _id })
+                    fs.writeFile("log.txt",`User log in ${username} at ${login_time}\n`, (err)=>{
+                        if (err){
+                            console.log(err)
+                        } else {
+                            console.log("Log has been created successfully")
+                        }
+                    })
+                }
+                })
+                res.json({ success: true, token,is_admin, _id })
             } else {
                 res.json({ success: false })
             }
@@ -115,6 +139,24 @@ const login = asyncHandler(async (req, res) => {
     }
 })
 
+const logout = asyncHandler(async (req, res) => {
+    const logoutTime = new Date();
+    const sessionDuration = logoutTime - req.session.loginTime;
+
+    fs.appendFileSync('log.txt', `Log out ${req.session.userId} at ${logoutTime}. with a duration of ${sessionDuration} milliseconds\n`);
+
+  
+    req.session.destroy((err) => {
+        if (err) {
+            console.error("Error destroying session:", err);
+            res.status(500).json({ success: false, error: "Internal Server Error" });
+        } else {
+            res.status(200).json({ success: true, message: "Logout successful" });
+        }
+    });
+});
+
+
 module.exports ={
     get_patients,
     get_patient_by_id,
@@ -122,5 +164,6 @@ module.exports ={
     update_patient,
     delete_patient,
     login,
+    logout,
     
 }   
