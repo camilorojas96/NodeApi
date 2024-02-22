@@ -6,7 +6,7 @@ const authenticateToken = require('../middleware/authenticator')
 router.post('/login', login)
 
 router.get('/',authenticateToken,get_patients) 
-router.get('/:id',get_patient_by_id )
+router.get('/:id',authenticateToken,get_patient_by_id )
 router.post('/', authenticateToken,add_patient)
 router.put('/:id',authenticateToken,update_patient )
 router.delete('/:id',authenticateToken,delete_patient )

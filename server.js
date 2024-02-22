@@ -10,13 +10,18 @@ const MONGO_URL = process.env.MONGO_URL
 const PORT = process.env.PORT || 3000
 const session = require('express-session')
 
+
+
+
+
 app.use(cors())
 app.use(express.json())
+
 app.use(session({
-    secret: process.env.SESSION_SECRET, 
+    secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
-  }))
+}))
 
 
 //routes

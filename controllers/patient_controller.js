@@ -110,61 +110,66 @@ const login = asyncHandler(async (req, res) => {
                 const login_time = new Date();
                 req.session.login_time = login_time;
                 req.session.userId = patient.id;
-                req.session.login_count = (req.session.login_count || 0) + 1;
-                const logPath = "log.txt";
-                const logEntry = `User: ${username} log in  (Session ${req.session.login_count}) at ${login_time}, Login Count: ${req.session.login_count}\n`;
 
-                fs.appendFileSync(logPath, logEntry, (err) => {
+                const logPath = "log.txt";
+                const logEntry = `User: ${username} log in  at ${login_time}\n`;
+
+                fs.appendFile(logPath, logEntry, (err) => {
                     if (err) {
                         console.error("Error appending to log file:", err);
+                       
+                        res.status(500).json({ success: false, error: "Error appending to log file" });
                     } else {
-                        console.log("Log entry appended successfully");
+                        console.log("Login entry appended successfully");
+                        
+                        res.json({ success: true, token, is_admin, _id });
                     }
                 });
-
-                res.json({ success: true, token, is_admin, _id });
             } else {
-                res.json({ success: false });
+                res.json({ success: false })
             }
         } else {
-            res.json({ success: false });
+            res.json({ success: false })
         }
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
+        console.error(error)
+        res.status(500).json({ success: false, error: 'Internal Server Error' })
     }
-});
+})
 
 const logout = asyncHandler(async (req, res) => {
-    try {
-        const logout_time = new Date();
-        const sessionDuration = logout_time - req.session.login_time;
-        const logPath = "log.txt"
-        console.log(req.session.login_time, req.session.login_count)
-        const logEntry = `Log out ${req.session.login_count} (Session ${req.session.login_count}) at ${logout_time}. with a duration of ${sessionDuration} milliseconds, Login Count: ${req.session.login_count}\n`;
-        fs.appendFileSync(logPath, logEntry, (err) => {
-            if (err) {
-                console.error("Error appending to log file:", err);
-            } else {
-                console.log("Log entry appended successfully");
-            }
-        });
+        try {
+            if (req.session) {
+                const logout_time = new Date();
+                const sessionDuration = logout_time - req.session.login_time;
+                const logPath = "log.txt";
+            console.log(req.session.login_time, );
+            const logEntry = `Log out ${req.session.userId} at ${logout_time}. with a duration of ${sessionDuration} milliseconds\n`;      
+            fs.appendFile(logPath, logEntry, (err) => {
+                if (err) {
+                    console.error("Error appending to log file:", err);
+                } else {
+                    console.log("Logout entry appended successfully");
+                    req.session.destroy((err) => {
+                        if (err) {
+                            console.error("Error destroying session:", err);
+                            res.status(500).json({ success: false, error: "Internal Server Error" });
+                        } else {
+                            res.status(200).json({ success: true, message: "Logout successful" });
+                        }
+                    });
+                }
+            });
+                
+              } else {
+                console.error('No session found');
+              }
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ success: false, error: 'Internal Server Error' });
+        }
+    })
 
-        req.session.destroy((err) => {
-            if (err) {
-                console.error("Error destroying session:", err);
-                res.status(500).json({ success: false, error: "Internal Server Error" });
-            } else {
-                res.status(200).json({ success: true, message: "Logout successful" });
-            }
-        });
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ success: false, error: 'Internal Server Error' });
-    }
-});
-
-module.exports = { login, logout };
 module.exports ={
     get_patients,
     get_patient_by_id,
@@ -172,6 +177,5 @@ module.exports ={
     update_patient,
     delete_patient,
     login,
-    logout,
-    
+    logout,  
 }   

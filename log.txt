@@ -6,3 +6,41 @@ User: 1049646394 log in  (Session 1) at Wed Feb 21 2024 11:45:41 GMT-0500 (Colom
 Log out undefined (Session undefined) at Wed Feb 21 2024 11:45:43 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
 User: 1049646394 log in  (Session 1) at Wed Feb 21 2024 11:52:13 GMT-0500 (Colombia Standard Time), Login Count: 1
 Log out undefined (Session undefined) at Wed Feb 21 2024 11:52:17 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 08:36:59 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Thu Feb 22 2024 08:37:03 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1122334455 log in  (Session 1) at Thu Feb 22 2024 08:38:53 GMT-0500 (Colombia Standard Time), Login Count: 1
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 08:47:51 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Thu Feb 22 2024 08:47:54 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 08:52:58 GMT-0500 (Colombia Standard Time), Login Count: 1
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 08:54:28 GMT-0500 (Colombia Standard Time), Login Count: 1
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 08:55:07 GMT-0500 (Colombia Standard Time), Login Count: 1
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 08:57:22 GMT-0500 (Colombia Standard Time), Login Count: 1
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 08:58:43 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Thu Feb 22 2024 09:00:19 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 09:01:28 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Thu Feb 22 2024 09:01:31 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 09:04:06 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Thu Feb 22 2024 09:04:08 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 09:05:09 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Thu Feb 22 2024 09:05:12 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  (Session 1) at Thu Feb 22 2024 09:10:43 GMT-0500 (Colombia Standard Time), Login Count: 1
+Log out undefined (Session undefined) at Thu Feb 22 2024 09:10:47 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  at Thu Feb 22 2024 09:13:24 GMT-0500 (Colombia Standard Time)
+Log out undefined at Thu Feb 22 2024 09:13:27 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds, Login Count: undefined
+User: 1049646394 log in  at Thu Feb 22 2024 09:15:43 GMT-0500 (Colombia Standard Time)
+Log out undefined at Thu Feb 22 2024 09:15:48 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in  at Thu Feb 22 2024 09:16:54 GMT-0500 (Colombia Standard Time)
+Log out undefined at Thu Feb 22 2024 09:16:56 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in  at Thu Feb 22 2024 09:19:18 GMT-0500 (Colombia Standard Time)
+Log out undefined at Thu Feb 22 2024 09:19:21 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in  at Thu Feb 22 2024 09:20:40 GMT-0500 (Colombia Standard Time)
+Log out undefined at Thu Feb 22 2024 09:20:43 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in  at Thu Feb 22 2024 09:30:16 GMT-0500 (Colombia Standard Time)
+Log out undefined at Thu Feb 22 2024 09:30:18 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1122334455 log in  at Thu Feb 22 2024 09:33:02 GMT-0500 (Colombia Standard Time)
+Log out undefined at Thu Feb 22 2024 09:33:05 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1122334455 log in  at Thu Feb 22 2024 09:37:45 GMT-0500 (Colombia Standard Time)
+User: 1122334455 log in  at Thu Feb 22 2024 09:38:12 GMT-0500 (Colombia Standard Time)
+User: 1122334455 log in  at Thu Feb 22 2024 09:38:53 GMT-0500 (Colombia Standard Time)
+User: 1122334455 log in  at Thu Feb 22 2024 09:53:25 GMT-0500 (Colombia Standard Time)
+Log out undefined at Thu Feb 22 2024 09:53:28 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
