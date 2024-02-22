@@ -3,6 +3,8 @@ const asyncHandler = require('express-async-handler')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 const fs = require('fs')
+const nodemailer = require('nodemailer')
+require("dotenv").config()
 
 
 const  get_patients =  asyncHandler(async(req,res)=>{
@@ -102,6 +104,7 @@ const login = asyncHandler(async (req, res) => {
             if (isPasswordMatch) {
                 const is_admin = patient.administrator || false;
                 const _id = patient._id;
+                const email = patient.email;
                 const token_user = {
                     username: patient.id,
                     id: _id,
@@ -112,30 +115,58 @@ const login = asyncHandler(async (req, res) => {
                 req.session.userId = patient.id;
 
                 const logPath = "log.txt";
-                const logEntry = `User: ${username} log in  at ${login_time}\n`;
+                const logEntry = `User: ${username} log in at ${login_time}\n`;
 
                 fs.appendFile(logPath, logEntry, (err) => {
                     if (err) {
                         console.error("Error appending to log file:", err);
-                       
                         res.status(500).json({ success: false, error: "Error appending to log file" });
                     } else {
                         console.log("Login entry appended successfully");
-                        
+
+                        send_login_email(email);
+
                         res.json({ success: true, token, is_admin, _id });
                     }
                 });
             } else {
-                res.json({ success: false })
+                res.json({ success: false });
             }
         } else {
-            res.json({ success: false })
+            res.json({ success: false });
         }
     } catch (error) {
-        console.error(error)
-        res.status(500).json({ success: false, error: 'Internal Server Error' })
+        console.error(error);
+        res.status(500).json({ success: false, error: 'Internal Server Error' });
     }
-})
+});
+
+const send_login_email = async (userEmail) => {
+    try {
+        const transporter = nodemailer.createTransport({
+            host: "smtp.gmail.com",
+            port: 465,
+            secure:true,
+            auth: {
+                user: process.env.MAIL,
+                pass: process.env.MAIL_PASSWORD,
+            },
+        });
+
+        const mailOptions = {
+            from: process.env.MAIL,
+            to: userEmail,
+            subject: 'Successful login',
+            text: 'You have login at Heiditas',
+        };
+
+        await transporter.sendMail(mailOptions);
+        console.log('Login mail sent successfully');
+    } catch (error) {
+        console.error('Error while sending mail', error);
+    }
+};
+
 
 const logout = asyncHandler(async (req, res) => {
         try {
