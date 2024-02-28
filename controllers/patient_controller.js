@@ -34,33 +34,59 @@
         }
     })
 
-   
-
-
-const add_patient = asyncHandler(async (req, res) => {
-    try {
-        const { password, ...otherData } = req.body;
-
-        const salt = await bcrypt.genSalt(10);
-        const hashed_password = await bcrypt.hash(password, salt);
-
-        const patientData = {
-            ...otherData,
-            password: hashed_password,
+    const add_patient = asyncHandler(async (req, res) => {
+        const generate_password = () => {
+            const uppercaseChars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            const lowercaseChars = 'abcdefghijklmnopqrstuvwxyz';
+            const numericChars = '0123456789';
+            const specialChars = '@+*-/|';
+        
+            const allChars = uppercaseChars + lowercaseChars + numericChars + specialChars;
+        
+            const getRandomChar = (charSet) => {
+                const randomIndex = Math.floor(Math.random() * charSet.length);
+                return charSet[randomIndex];
+            };
+        
+            const getRandomSpecialChar = () => getRandomChar(specialChars);
+        
+            const password =
+                getRandomChar(uppercaseChars) +
+                getRandomChar(lowercaseChars) +
+                getRandomChar(numericChars) +
+                getRandomSpecialChar() +
+                Array.from({ length: 4 }, () => getRandomChar(allChars)).join('');
+        
+            const shuffledPassword = password.split('').sort(() => Math.random() - 0.5).join('');
+        
+            return shuffledPassword;
         };
-
-        const patient = await Patient.create(patientData);
-
-        await new_patient_email(patient, password);
-
-        res.status(200).json(patient);
-    } catch (error) {
-        console.log(error.message);
-        res.status(500);
-        throw new Error(error.message);
-    }
-});
-
+    
+        try {
+            const { ...otherData } = req.body;
+    
+            const password = generate_password();
+    
+            const salt = await bcrypt.genSalt(10);
+            const hashed_password = await bcrypt.hash(password, salt);
+    
+            const patientData = {
+                ...otherData,
+                password: hashed_password,
+            };
+    
+            const patient = await Patient.create(patientData);
+    
+            await new_patient_email(patient, password);
+    
+            res.status(200).json(patient);
+        } catch (error) {
+            console.log(error.message);
+            res.status(500);
+            throw new Error(error.message);
+        }
+    });
+    
     const update_patient = asyncHandler(async(req, res)=>{
         try {
             const {id} = req.params
@@ -176,6 +202,7 @@ const add_patient = asyncHandler(async (req, res) => {
     };
 
     const new_patient_email = async (patient, plainPassword) => {
+        
         try {
             const transporter = nodemailer.createTransport({
                 host: "smtp.gmail.com",
@@ -186,21 +213,24 @@ const add_patient = asyncHandler(async (req, res) => {
                     pass: process.env.MAIL_PASSWORD,
                 },
             });
-    
+            const change_password_link = 'http://localhost:5173/change_password';
+
             const mailOptions = {
                 from: process.env.MAIL,
                 to: patient.email,
                 subject: 'New user at Heiditas Clinic',
                 html: `
-                  <div style="background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;">
-                    <h2 style="color: #512da8;">Heiditas Clinic</h2>
-                    <p style="font-size: 16px;">Dear Patient <strong>${patient.name} ${patient.last_name}</strong>,</p>
-                    <p style="font-size: 16px;">Welcome to Heiditas Clinic! .</p>
-                    <p style="font-size: 16px;">Your patient ID is: <strong>${patient.id}</strong></p>
-                    <p style="font-size: 16px;">Your one-time password is: <strong>${plainPassword}</strong></p>
-                    <p style="font-size: 16px;">Thank you for choosing Heiditas Clinic.</p>
-                    <p style="font-size: 16px;">Heiditas Clinic Team</p>
-                  </div>
+                    <div style="background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;">
+                        <h2 style="color: #512da8;">Heiditas Clinic</h2>
+                        <p style="font-size: 16px;">Dear Patient <strong>${patient.name} ${patient.last_name}</strong>,</p>
+                        <p style="font-size: 16px;">Welcome to Heiditas Clinic! .</p>
+                        <p style="font-size: 16px;">Your patient ID is: <strong>${patient.id}</strong></p>
+                        <p style="font-size: 16px;">Your one-time password is: <strong>${plainPassword}</strong></p>
+                        <p style="font-size: 16px;">
+                        <a href="${change_password_link}" style="display: inline-block; padding: 10px; background-color: #512da8; color: #fff; text-decoration: none; border-radius: 5px;">Change Password</a>
+                        <p style="font-size: 16px;">Thank you for choosing Heiditas Clinic.</p>
+                        <p style="font-size: 16px;">Heiditas Clinic Team</p>
+                    </div>
                 `,
             };
     
@@ -210,6 +240,7 @@ const add_patient = asyncHandler(async (req, res) => {
             console.error('Error while sending mail', error);
         }
     };
+    
     const logout = asyncHandler(async (req, res) => {
             try {
                 if (req.session) {
