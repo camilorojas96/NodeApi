@@ -73,3 +73,39 @@ User: 1049646394 log in at Sat Feb 24 2024 09:46:43 GMT-0500 (Colombia Standard 
 User: 1049646394 log in at Sat Feb 24 2024 09:51:47 GMT-0500 (Colombia Standard Time)
 User: 1122334455 log in at Sat Feb 24 2024 09:53:26 GMT-0500 (Colombia Standard Time)
 User: 1049646394 log in at Wed Feb 28 2024 09:02:10 GMT-0500 (Colombia Standard Time)
+User: 555554444 log in at Wed Feb 28 2024 10:14:20 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:14:22 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:26:38 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:27:17 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 4444555555 log in at Wed Feb 28 2024 10:28:16 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:28:26 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:32:33 GMT-0500 (Colombia Standard Time)
+User: 4444455555 log in at Wed Feb 28 2024 10:33:36 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:36:29 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 4444455555 log in at Wed Feb 28 2024 10:36:45 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:36:48 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:36:59 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:38:20 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 4444455555 log in at Wed Feb 28 2024 10:38:34 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:38:42 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:38:49 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:39:44 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 987654321 log in at Wed Feb 28 2024 10:40:11 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:43:49 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:52:14 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:52:22 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:52:32 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:56:17 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:56:26 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:57:10 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:57:20 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 10:59:50 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 10:59:57 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 11:00:01 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 11:00:10 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 11:01:08 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 1049646394 log in at Wed Feb 28 2024 11:01:24 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 11:02:17 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds
+User: 987654321 log in at Wed Feb 28 2024 11:02:23 GMT-0500 (Colombia Standard Time)
+User: 987654321 log in at Wed Feb 28 2024 11:02:43 GMT-0500 (Colombia Standard Time)
+Log out undefined at Wed Feb 28 2024 11:02:46 GMT-0500 (Colombia Standard Time). with a duration of NaN milliseconds

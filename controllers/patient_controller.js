@@ -121,51 +121,61 @@
 
     const login = asyncHandler(async (req, res) => {
         try {
-            const { username, password } = req.body;
-            const patient = await Patient.findOne({ id: username });
+          const { username, password } = req.body;
+          const patient = await Patient.findOne({ id: username });
+      
+          if (patient) {
+            const isPasswordMatch = await bcrypt.compare(password, patient.password);
+      
+            if (isPasswordMatch) {
 
-            if (patient) {
-                const isPasswordMatch = await bcrypt.compare(password, patient.password);
+              const is_admin = patient.administrator || false;
+              const _id = patient._id;
+              const email = patient.email;
+              const token_user = {
+                username: patient.id,
+                id: _id,
+              };
+              const token = jwt.sign(token_user, process.env.TOKEN_SECRET);
+              const login_time = new Date();
+              req.session.login_time = login_time;
+              req.session.userId = patient.id;
+              patient.login_count += 1;
 
-                if (isPasswordMatch) {
-                    const is_admin = patient.administrator || false;
-                    const _id = patient._id;
-                    const email = patient.email;
-                    const token_user = {
-                        username: patient.id,
-                        id: _id,
-                    };
-                    const token = jwt.sign(token_user, process.env.TOKEN_SECRET);
-                    const login_time = new Date();
-                    req.session.login_time = login_time;
-                    req.session.userId = patient.id;
-
-                    const logPath = "log.txt";
-                    const logEntry = `User: ${username} log in at ${login_time}\n`;
-
-                    fs.appendFile(logPath, logEntry, (err) => {
-                        if (err) {
-                            console.error("Error appending to log file:", err);
-                            res.status(500).json({ success: false, error: "Error appending to log file" });
-                        } else {
-                            console.log("Login entry appended successfully");
-
-                            send_login_email(patient);
-
-                            res.json({ success: true, token, is_admin, _id });
-                        }
-                    });
+              await patient.save()
+      
+              const logPath = "log.txt";
+              const logEntry = `User: ${username} log in at ${login_time}\n`;
+      
+              fs.appendFile(logPath, logEntry, (err) => {
+                if (err) {
+                  console.error("Error appending to log file:", err);
+                  res.status(500).json({ success: false, error: "Error appending to log file" });
                 } else {
-                    res.json({ success: false });
+                  console.log("Login entry appended successfully");
+                  send_login_email(patient);
+                  if(patient.login_count === 1){
+                    res.json({ success: true, token, is_admin, _id, first_login: true })
+                    console.log(patient.login_count)
+                }else{
+                    res.json({ success: true, token, is_admin, _id, first_login: false });
+                    console.log(patient.login_count)
+                } 
                 }
+              });
             } else {
-                res.json({ success: false });
+              res.json({ success: false });
             }
+          } else {
+            res.json({ success: false });
+          }
         } catch (error) {
-            console.error(error);
-            res.status(500).json({ success: false, error: 'Internal Server Error' });
+          console.error(error);
+          res.status(500).json({ success: false, error: 'Internal Server Error' });
         }
-    });
+      });
+      
+
 
     const send_login_email = async (patient) => {
         try {
@@ -213,7 +223,7 @@
                     pass: process.env.MAIL_PASSWORD,
                 },
             });
-            const change_password_link = 'http://localhost:5173/change_password';
+            const login_link = `http://localhost:5173`
 
             const mailOptions = {
                 from: process.env.MAIL,
@@ -227,7 +237,7 @@
                         <p style="font-size: 16px;">Your patient ID is: <strong>${patient.id}</strong></p>
                         <p style="font-size: 16px;">Your one-time password is: <strong>${plainPassword}</strong></p>
                         <p style="font-size: 16px;">
-                        <a href="${change_password_link}" style="display: inline-block; padding: 10px; background-color: #512da8; color: #fff; text-decoration: none; border-radius: 5px;">Change Password</a>
+                        <a href="${login_link}" style="display: inline-block; padding: 10px; background-color: #512da8; color: #fff; text-decoration: none; border-radius: 5px;">Log in</a>
                         <p style="font-size: 16px;">Thank you for choosing Heiditas Clinic.</p>
                         <p style="font-size: 16px;">Heiditas Clinic Team</p>
                     </div>
@@ -274,6 +284,29 @@
             }
         })
 
+        const change_password = asyncHandler(async (req, res) => {
+            try {
+              const { id } = req.params;
+              const { newPassword } = req.body;
+          
+              const patient = await Patient.findById(id);
+              if (!patient) {
+                return res.status(404).json({ msg: 'Patient not found' });
+              }
+          
+              const salt = await bcrypt.genSalt(10);
+              const hashedPassword = await bcrypt.hash(newPassword, salt);
+          
+              patient.password = hashedPassword;
+              await patient.save();
+          
+              res.json({ success: true });
+            } catch (error) {
+              console.error(error.message);
+              res.status(500).send('Server Error');
+            }
+          });
+          
         
     module.exports ={
         get_patients,
@@ -283,4 +316,5 @@
         delete_patient,
         login,
         logout,  
+        change_password,
     }   

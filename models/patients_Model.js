@@ -32,7 +32,11 @@ const patientSchema = mongoose.Schema(
         password : {
             type: String,
             required: true
-        }
+        },
+        login_count: {
+            type: Number,
+            default: 0,
+          },
     }
 )
 
