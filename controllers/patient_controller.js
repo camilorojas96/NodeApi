@@ -85,7 +85,7 @@
             res.status(500);
             throw new Error(error.message);
         }
-    });
+    })
     
     const update_patient = asyncHandler(async(req, res)=>{
         try {
@@ -173,10 +173,9 @@
           console.error(error);
           res.status(500).json({ success: false, error: 'Internal Server Error' });
         }
-      });
       
-
-
+    })
+      
     const send_login_email = async (patient) => {
         try {
             const transporter = nodemailer.createTransport({
@@ -209,9 +208,9 @@
         } catch (error) {
             console.error('Error while sending mail', error);
         }
-    };
+    }
 
-    const new_patient_email = async (patient, plainPassword) => {
+    const new_patient_email = async (patient, plain_password) => {
         
         try {
             const transporter = nodemailer.createTransport({
@@ -235,7 +234,7 @@
                         <p style="font-size: 16px;">Dear Patient <strong>${patient.name} ${patient.last_name}</strong>,</p>
                         <p style="font-size: 16px;">Welcome to Heiditas Clinic! .</p>
                         <p style="font-size: 16px;">Your patient ID is: <strong>${patient.id}</strong></p>
-                        <p style="font-size: 16px;">Your one-time password is: <strong>${plainPassword}</strong></p>
+                        <p style="font-size: 16px;">Your one-time password is: <strong>${plain_password}</strong></p>
                         <p style="font-size: 16px;">
                         <a href="${login_link}" style="display: inline-block; padding: 10px; background-color: #512da8; color: #fff; text-decoration: none; border-radius: 5px;">Log in</a>
                         <p style="font-size: 16px;">Thank you for choosing Heiditas Clinic.</p>
@@ -249,7 +248,53 @@
         } catch (error) {
             console.error('Error while sending mail', error);
         }
-    };
+    }
+
+    const forgot_password = async (req, res) => {
+        try {
+            const { username } = req.body;
+            const patient = await Patient.findOne({ id: username });
+    
+            if (patient) {
+                const transporter = nodemailer.createTransport({
+                    host: "smtp.gmail.com",
+                    port: 465,
+                    secure: true,
+                    auth: {
+                        user: process.env.MAIL,
+                        pass: process.env.MAIL_PASSWORD,
+                    },
+                });
+    
+                const login_link = `http://localhost:5173/change_password/${patient.id}`;
+    
+                const mailOptions = {
+                    from: process.env.MAIL,
+                    to: patient.email,
+                    subject: 'Change password',
+                    html: `
+                        <div style="background-color: #f4f4f4; padding: 20px; font-family: Arial, sans-serif;">
+                            <h2 style="color: #512da8;">Heiditas Clinic</h2>
+                            <p style="font-size: 16px;">Dear Patient <strong>${patient.name} ${patient.last_name}</strong>,</p>
+                            <a href="${login_link}" style="display: inline-block; padding: 10px; background-color: #512da8; color: #fff; text-decoration: none; border-radius: 5px;">Change your password</a>
+                            <p style="font-size: 16px;">Thank you for choosing Heiditas Clinic.</p>
+                            <p style="font-size: 16px;">Heiditas Clinic Team</p>
+                        </div>
+                    `,
+                };
+    
+                await transporter.sendMail(mailOptions);
+                console.log('New patient mail sent successfully');
+                res.json({ success: true });
+            } else {
+                res.json({ success: false });
+            }
+        } catch (error) {
+            console.error('Error while sending mail', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
+    }
+    
     
     const logout = asyncHandler(async (req, res) => {
             try {
@@ -282,9 +327,10 @@
                 console.error(error);
                 res.status(500).json({ success: false, error: 'Internal Server Error' });
             }
-        })
+        
+    })
 
-        const change_password = asyncHandler(async (req, res) => {
+    const change_password = asyncHandler(async (req, res) => {
             try {
               const { id } = req.params;
               const { newPassword } = req.body;
@@ -305,7 +351,7 @@
               console.error(error.message);
               res.status(500).send('Server Error');
             }
-          });
+    })
           
         
     module.exports ={
@@ -317,4 +363,5 @@
         login,
         logout,  
         change_password,
+        forgot_password,
     }   

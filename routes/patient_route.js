@@ -1,10 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const {get_patients, get_patient_by_id, add_patient, update_patient, delete_patient, login, logout, change_password} = require('../controllers/patient_controller')
+const {get_patients, get_patient_by_id, add_patient, update_patient, delete_patient, login, logout, change_password, forgot_password} = require('../controllers/patient_controller')
 const authenticateToken = require('../middleware/authenticator')
 
 router.post('/login', login)
 router.post('/change_password/:id', change_password)
+router.post('/forgot_password', forgot_password)
+
 
 router.get('/',authenticateToken,get_patients) 
 router.get('/:id',authenticateToken,get_patient_by_id )
